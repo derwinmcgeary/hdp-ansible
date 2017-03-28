@@ -1,0 +1,11 @@
+---
+- name: install HDP
+  hosts: all
+  become: yes
+- include: prereqs.yml
+- include: ambari-server.yml
+- include: postgres-setup.yml
+- include: postgres-setup-finish.yml
+- include: ambari-start.yml
+- include: submit-blueprint.yml
+- include: submit-cluster-template.yml

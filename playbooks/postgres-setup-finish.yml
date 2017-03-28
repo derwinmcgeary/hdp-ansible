@@ -1,0 +1,7 @@
+---
+- name: Reload postgres
+  hosts: ambari
+  become: yes
+  tasks:
+  - service: name=postgresql state=started
+  - service: name=postgresql state=reloaded

@@ -1,0 +1,5 @@
+---
+- name: Submit the cluster blueprint
+  hosts: ambari
+  tasks:
+  - debug: msg="TODO not implemented yet, but use the uri module"

@@ -1,0 +1,7 @@
+---
+clustername: derwin
+domain: cloudwick.com
+realm: CLOUDWICK.COM
+hdpversion: 2.5
+hive_passwd: admin
+oozie_passwd: admin

@@ -1,0 +1,42 @@
+---
+- name: Prepare for a full HDP install
+  hosts: all
+  become: true
+  tasks:
+  - name: Install libselinux-python
+    package: name=libselinux-python state=latest
+  - name: diable SElinux
+    selinux: state=disabled
+  - name: Set hostnames
+    hostname: name={{hn}}.{{domain}}
+  - name: set /etc/hosts
+    template: src=files/hosts dest=/etc/hosts owner=root group=root mode=0644
+  - name: Prepare system for hacking
+    package: name=emacs-nox state=latest
+  - name: Enable EPEL
+    package: name=epel-release state=latest
+  - name: Prepare system for Postgres
+    package: name=python-psycopg2 state=latest
+  - name: set ulimit to 10000
+    shell: ulimit -n 10000
+  - name: install ntp
+    package: name=ntp state=latest
+  - name: start ntp
+    service: name=ntpd state=started enabled=yes
+  - name: Configure /etc/sysconfig/network
+    lineinfile: "dest=/etc/sysconfig/network state=present regexp='^HOSTNAME' line='HOSTNAME={{hn}}.{{domain}}'"
+  - name: Disable SELinux
+    selinux: state=disabled
+  - name: Install HDP repo
+    yum_repository:
+      name: Ambari
+      description: ambari-2.4.1.0 - Updates
+      file: ambari.repo
+      baseurl: http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.4.1.0
+      gpgcheck: yes
+      gpgkey: http://public-repo-1.hortonworks.com/ambari/centos7/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+      priority: 1
+  - name: install ambari-agent
+    package: name=ambari-agent state=latest
+  - name: Configure ambari-agent to see ambari-server
+    lineinfile: "dest=/etc/ambari-agent/conf/ambari-agent.ini state=present regexp='^hostname' line='hostname={{ hostvars[groups['ambari'][0]]['hn'] }}.{{domain}}'"

@@ -1,0 +1,5 @@
+---
+- name: Cluster creation template
+  hosts: ambari
+  tasks:
+  - debug: msg="still to do"

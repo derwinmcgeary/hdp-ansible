@@ -1,0 +1,12 @@
+---
+- name: Set up Postgres for Hive and Oozie
+  hosts: ambari
+  become: yes
+  become_user: postgres
+  tasks:
+    - postgresql_db: name=hive
+    - postgresql_user: db=hive name=hive password={{hive_passwd}} priv=ALL
+    - postgresql_db: name=oozie
+    - postgresql_user: db=oozie name=oozie password={{oozie_passwd}} priv=ALL
+    - lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf line="host  all   hive,oozie 0.0.0.0/0  md5"
+    - lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf line="local  all  ambari,mapred md5"
