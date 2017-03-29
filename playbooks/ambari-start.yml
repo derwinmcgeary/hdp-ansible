@@ -3,10 +3,5 @@
   hosts: all
   become: true
   tasks:
-  - name: Check for ambari-agent status
-    command: ambari-agent status
-    register: ambaristatus
   - name: Start if ambari-agent not running
     service: name=ambari-agent state=started
-    when: ambaristatus.stdout | search('.*not running.*')
-
