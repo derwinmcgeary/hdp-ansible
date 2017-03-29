@@ -6,11 +6,11 @@
   - name: Install HDP repo
     yum_repository:
       name: Ambari
-      description: ambari-2.4.1.0 - Updates
+      description: ambari-2.4.2.0 - Updates
       file: ambari.repo
-      baseurl: http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.4.1.0
+      baseurl: http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.4.2.0
       gpgcheck: yes
-      gpgkey: http://public-repo-1.hortonworks.com/ambari/centos7/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+      gpgkey: http://public-repo-1.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
       priority: 1
   - name: Install postgresql-jdbc
     package: name=postgresql-jdbc state=latest
@@ -19,9 +19,6 @@
 
   - command: ambari-server setup -s
   - command: ambari-server setup --jdbc-db=postgres --jdbc-driver=/usr/share/java/postgresql-jdbc.jar
-  - name: Check for ambari-server status
-    command: ambari-server status
-    register: ambaristatus
-  - name: Start if ambari-server not running
+
+  - name: Start ambari-server
     service: name=ambari-server state=started
-    when: ambaristatus.stdout | search('.*Ambari Server not running.*')
