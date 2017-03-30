@@ -5,3 +5,4 @@ realm: CLOUDWICK.COM
 hdpversion: 2.5
 hive_passwd: admin
 oozie_passwd: admin
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
