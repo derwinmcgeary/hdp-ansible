@@ -16,7 +16,17 @@
     package: name=postgresql-jdbc state=latest
   - name: Install ambari-server
     package: name=ambari-server state=latest
-
+    
+  - name: remove existing Ambari Agent SSL conf
+    lineinfile:
+      state: absent
+      regexp: '^security.server.two_way_ssl'
+    
+  - name: Enable SSL between Ambari agents and Ambari server
+    lineinfile: 
+      name: /etc/ambari-server/conf/ambari.properties
+      line: 'security.server.two_way_ssl = true'
+      
   - command: ambari-server setup -s
   - command: ambari-server setup --jdbc-db=postgres --jdbc-driver=/usr/share/java/postgresql-jdbc.jar
 
