@@ -19,6 +19,7 @@
     
   - name: remove existing Ambari Agent SSL conf
     lineinfile:
+      name: /etc/ambari-server/conf/ambari.properties
       state: absent
       regexp: '^security.server.two_way_ssl'
     
