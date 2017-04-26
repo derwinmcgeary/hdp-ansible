@@ -18,7 +18,7 @@
     gpgkey: "{{ ambariGpgUrl }}"
     priority: 1
 
-- name: Amabri Agent installed
+- name: Ambari Agent installed
   package: name=ambari-agent state=latest
 
 - name: Ambari Agent configured
