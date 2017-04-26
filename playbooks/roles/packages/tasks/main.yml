@@ -1,0 +1,25 @@
+---
+- name: EPEL repo enabled
+  package: name=epel-release state=latest
+  
+- name: Python SELinux tools installed
+  package: name=libselinux-python state=latest
+
+- name: NTP installed
+  package: name=ntp state=latest
+
+- name: Ambari repo configured
+  yum_repository:
+    name: Ambari
+    description: Ambari
+    file: ambari
+    baseurl: {{ ambariUrl }}
+    gpgcheck: no
+    gpgkey: {{ ambariGpgUrl }}
+    priority: 1
+
+- name: Amabri Agent installed
+  package: name=ambari-agent state=latest
+
+- name: Ambari Agent configured
+   lineinfile: "dest=/etc/ambari-agent/conf/ambari-agent.ini state=present regexp='^hostname' line='hostname={{ hostvars[groups['ambari'][0]]['ansible_hostname'] }}.{{domain}}'"

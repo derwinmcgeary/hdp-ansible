@@ -1,35 +1,7 @@
 ---
-- name: Prepare for a full HDP install
+- name: Configure Ambari Server
   hosts: ambari
   become: true
-  tasks:
-  - name: Install HDP repo
-    yum_repository:
-      name: Ambari
-      description: ambari-2.4.2.0 - Updates
-      file: ambari.repo
-      baseurl: http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.4.2.0
-      gpgcheck: yes
-      gpgkey: http://public-repo-1.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
-      priority: 1
-  - name: Install postgresql-jdbc
-    package: name=postgresql-jdbc state=latest
-  - name: Install ambari-server
-    package: name=ambari-server state=latest
-    
-  - name: remove existing Ambari Agent SSL conf
-    lineinfile:
-      name: /etc/ambari-server/conf/ambari.properties
-      state: absent
-      regexp: '^security.server.two_way_ssl'
-    
-  - name: Enable SSL between Ambari agents and Ambari server
-    lineinfile: 
-      name: /etc/ambari-server/conf/ambari.properties
-      line: 'security.server.two_way_ssl = true'
-      
-  - command: ambari-server setup -s
-  - command: ambari-server setup --jdbc-db=postgres --jdbc-driver=/usr/share/java/postgresql-jdbc.jar
 
-  - name: Start ambari-server
-    service: name=ambari-server state=started
+  roles:
+  - ambariserver

@@ -1,0 +1,16 @@
+---
+- name: PostgreSQL JDBC installed
+  package: name=postgresql-jdbc state=latest
+
+- name: Ambari Server installed
+  package: name=ambari-server state=latest
+
+- name: Quick Ambari setup
+  command: ambari-server setup -s
+
+- name: Configure Ambari server JDBC
+  command: ambari-server setup --jdbc-db=postgres --jdbc-driver=/usr/share/java/postgresql-jdbc.jar
+
+- name: Ambari Server started
+  service: name=ambari-server state=started
+  

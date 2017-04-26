@@ -1,8 +1,10 @@
 ---
+ambariUrl: http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.4.0.1
+ambariGpgUrl: http://public-repo-1.hortonworks.com/ambari/centos7/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
 clustername: derwin
 domain: cloudwick.com
 realm: CLOUDWICK.COM
 hdpversion: 2.5
 hive_passwd: admin
 oozie_passwd: admin
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

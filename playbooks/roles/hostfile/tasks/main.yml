@@ -1,0 +1,3 @@
+---
+- name: set /etc/hosts
+  template: src=files/hosts dest=/etc/hosts owner=root group=root mode=0644
