@@ -13,13 +13,13 @@
     name: Ambari
     description: Ambari
     file: ambari
-    baseurl: {{ ambariUrl }}
+    baseurl: "{{ ambariUrl }}"
     gpgcheck: no
-    gpgkey: {{ ambariGpgUrl }}
+    gpgkey: "{{ ambariGpgUrl }}"
     priority: 1
 
 - name: Amabri Agent installed
   package: name=ambari-agent state=latest
 
 - name: Ambari Agent configured
-   lineinfile: "dest=/etc/ambari-agent/conf/ambari-agent.ini state=present regexp='^hostname' line='hostname={{ hostvars[groups['ambari'][0]]['ansible_hostname'] }}.{{domain}}'"
+  lineinfile: "dest=/etc/ambari-agent/conf/ambari-agent.ini state=present regexp='^hostname' line='hostname={{ hostvars[groups['ambari'][0]]['ansible_hostname'] }}.{{domain}}'"

@@ -3,4 +3,4 @@
   service: name=ntpd state=started enabled=yes
 
 - name: Ambari Agent started
-  service: name=ambari-agent state=start
+  service: name=ambari-agent state=started
