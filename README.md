@@ -4,7 +4,7 @@ First provision machines for your cluster. You should expand the disks and do an
 
 Next, on one of the machines, install Ansible (either from their git repository or do `yum install epel-release` and `yum install ansible` . If you run from the git repo you need to do `source ansible/hacking/env-setup` to prepare your environment.
 
-If you are reading this, you should have unpacked the files in this TGZ. Go to the file `inventory/all` and enter the details for your machines. 
+If you are reading this, you should have unpacked the files in this TGZ. Go to the files `inventory/all` and `inventory/group_vars/all` and enter the details for your machines. 
 
 ## Network details
 Please note: at present there are two roles to distribute `/etc/hosts` files for your cluster machines. This allows your cluster nodes to find each other independent of a DNS which you may or may not have control of. You must choose whether to run `hostfile` or `hostfilefromip` in the file [playbooks/prereqs.yml](https://github.com/derwinmcgeary/hdp-ansible/blob/master/playbooks/prereqs.yml) depending on the following.
