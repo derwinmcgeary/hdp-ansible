@@ -1,0 +1,6 @@
+---
+- name: Disable 129.254.169.254
+  iptables:
+    chain: OUTPUT
+    destination: 169.254.169.254
+    jump: DROP
