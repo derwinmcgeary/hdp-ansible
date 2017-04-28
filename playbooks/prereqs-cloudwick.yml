@@ -5,8 +5,7 @@
   
   roles:
     - config
-    - hostfile
-    - notaws  
+    - hostfilefromip
     - packages
     - security
     - services
